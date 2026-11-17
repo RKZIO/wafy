@@ -1,6 +1,6 @@
 use tauri::{
     menu::{Menu, MenuItem},
-    tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent},
+    tray::{MouseButton, TrayIconBuilder, TrayIconEvent},
     AppHandle, Manager,
 };
 
@@ -50,13 +50,21 @@ pub fn run() {
             let tray_menu = Menu::with_items(app, &[&open_item, &reload_item, &quit_item])?;
 
             // Setup Tray Icon
-            let _tray = TrayIconBuilder::with_id("main-tray")
+            let mut tray_builder = TrayIconBuilder::with_id("main-tray")
+                .tooltip("Wafy")
                 .menu(&tray_menu)
-                .show_menu_on_left_click(false)
+                .show_menu_on_left_click(false);
+
+            if let Some(icon) = app.default_window_icon() {
+                tray_builder = tray_builder.icon(icon.clone());
+            }
+
+            let _tray = tray_builder
                 .on_menu_event(|app, event| match event.id.as_ref() {
                     "open" => {
                         if let Some(window) = app.get_webview_window("main") {
                             let _ = window.show();
+                            let _ = window.unminimize();
                             let _ = window.set_focus();
                         }
                     }
@@ -73,18 +81,14 @@ pub fn run() {
                 .on_tray_icon_event(|tray, event| {
                     if let TrayIconEvent::Click {
                         button: MouseButton::Left,
-                        button_state: MouseButtonState::Up,
                         ..
                     } = event
                     {
                         let app = tray.app_handle();
                         if let Some(window) = app.get_webview_window("main") {
-                            if window.is_visible().unwrap_or(false) {
-                                let _ = window.hide();
-                            } else {
-                                let _ = window.show();
-                                let _ = window.set_focus();
-                            }
+                            let _ = window.show();
+                            let _ = window.unminimize();
+                            let _ = window.set_focus();
                         }
                     }
                 })
