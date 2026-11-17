@@ -1,0 +1,157 @@
+/**
+ * Wafy - WhatsApp Web Custom Styling & Enhancements
+ *
+ * Responsibilities:
+ * 1. Modern slim dark & light custom scrollbars.
+ * 2. Hide promotional / download app banners (Windows / mobile app prompts).
+ * 3. Polished desktop layout and responsive adjustments.
+ */
+
+/* ==========================================================================
+   1. Window & Responsive Desktop Layout
+   ========================================================================== */
+
+html, body {
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Ensure container spans full viewport without artificial web container caps */
+#app {
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: 100% !important;
+}
+
+#app > div,
+#app > div > div {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Disable accidental image drag and text selection on header bars */
+header,
+[data-testid="chatlist-header"],
+[data-testid="conversation-header"] {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* ==========================================================================
+   2. Modern Slim Scrollbars (Light & Dark)
+   ========================================================================== */
+
+/* Standard CSS scrollbar styling */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(120, 120, 120, 0.35) transparent;
+}
+
+/* WebKit-based scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px !important;
+  height: 6px !important;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(120, 120, 120, 0.3) !important;
+  border-radius: 6px !important;
+  border: 1px solid transparent !important;
+  background-clip: content-box !important;
+  transition: background-color 0.2s ease-in-out;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(120, 120, 120, 0.6) !important;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent !important;
+}
+
+/* Dark mode scrollbars */
+@media (prefers-color-scheme: dark) {
+  * {
+    scrollbar-color: rgba(220, 220, 220, 0.25) transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(220, 220, 220, 0.22) !important;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(220, 220, 220, 0.45) !important;
+  }
+}
+
+/* WhatsApp dark theme class overrides */
+body.dark *,
+html.dark *,
+.dark * {
+  scrollbar-color: rgba(220, 220, 220, 0.25) transparent;
+}
+
+body.dark ::-webkit-scrollbar-thumb,
+html.dark ::-webkit-scrollbar-thumb,
+.dark ::-webkit-scrollbar-thumb {
+  background-color: rgba(220, 220, 220, 0.22) !important;
+}
+
+body.dark ::-webkit-scrollbar-thumb:hover,
+html.dark ::-webkit-scrollbar-thumb:hover,
+.dark ::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(220, 220, 220, 0.45) !important;
+}
+
+/* ==========================================================================
+   3. Hide Annoying Download & Promotional Banners
+   ========================================================================== */
+
+/* Download WhatsApp for Windows / Mac / Desktop banners */
+[data-testid="banner-download-desktop"],
+[data-testid="intro-banner"],
+div[role="alert"]:has(a[href*="whatsapp.com/download"]),
+div[role="alert"]:has(a[href*="microsoft.com"]),
+div:has(> a[href*="whatsapp.com/download"]),
+div:has(> a[href*="microsoft.com/store"]),
+div:has(> button[aria-label*="Get WhatsApp" i]),
+div:has(> button[aria-label*="Get the app" i]),
+div:has(> button[aria-label*="Download" i]),
+div[data-testid*="banner"]:has(a[href*="download"]),
+div[data-testid*="banner"]:has(a[href*="microsoft.com"]) {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  max-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Hide desktop push notification permission prompt banners inside webview (since handled natively) */
+div[role="region"]:has(button[aria-label*="Turn on desktop notifications" i]),
+div:has(> button[aria-label*="Turn on desktop notifications" i]) {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  min-height: 0 !important;
+}
+
+/* Clean up introductory splash illustration spacing */
+[data-testid="intro-md-beta-logo-light"],
+[data-testid="intro-md-beta-logo-dark"] {
+  max-height: 180px;
+}

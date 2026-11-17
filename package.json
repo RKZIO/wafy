@@ -1,0 +1,14 @@
+{
+  "name": "wafy",
+  "version": "1.0.0",
+  "description": "Ultra-lightweight WhatsApp Web client for Linux built with Tauri v2 and Rust",
+  "private": true,
+  "scripts": {
+    "tauri": "tauri",
+    "dev": "tauri dev",
+    "build": "tauri build --bundles deb"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.0.0"
+  }
+}

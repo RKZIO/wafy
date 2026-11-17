@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- Soft Ambient & Contact Drop Shadows -->
+    <filter id="bubbleShadow" x="-20%" y="-15%" width="140%" height="145%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#022a1f" flood-opacity="0.35"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#011610" flood-opacity="0.25"/>
+    </filter>
+
+    <filter id="glyphShadow" x="-30%" y="-30%" width="160%" height="160%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#043d30" flood-opacity="0.30"/>
+    </filter>
+
+    <!-- Vibrant Messaging Gradient -->
+    <linearGradient id="mainGradient" x1="12%" y1="6%" x2="88%" y2="94%">
+      <stop offset="0%" stop-color="#3BF586"/>
+      <stop offset="25%" stop-color="#25D366"/>
+      <stop offset="65%" stop-color="#128C7E"/>
+      <stop offset="100%" stop-color="#075E54"/>
+    </linearGradient>
+
+    <!-- Inner Ambient Vignette for Depth -->
+    <radialGradient id="depthGlow" cx="42%" cy="28%" r="72%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.24"/>
+      <stop offset="45%" stop-color="#ffffff" stop-opacity="0.04"/>
+      <stop offset="85%" stop-color="#021c13" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#01100b" stop-opacity="0.42"/>
+    </radialGradient>
+
+    <!-- Aerodynamic Streamline Curves -->
+    <linearGradient id="aeroGrad1" x1="0%" y1="20%" x2="100%" y2="80%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.38"/>
+      <stop offset="35%" stop-color="#55FBB0" stop-opacity="0.22"/>
+      <stop offset="70%" stop-color="#128C7E" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#075E54" stop-opacity="0.0"/>
+    </linearGradient>
+
+    <linearGradient id="aeroGrad2" x1="0%" y1="80%" x2="100%" y2="20%">
+      <stop offset="0%" stop-color="#075E54" stop-opacity="0.0"/>
+      <stop offset="30%" stop-color="#128C7E" stop-opacity="0.10"/>
+      <stop offset="70%" stop-color="#3BF586" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.45"/>
+    </linearGradient>
+
+    <linearGradient id="sheen" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.0"/>
+    </linearGradient>
+
+    <!-- Interior Glyph Gradient -->
+    <linearGradient id="whiteGlyph" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F2FDF6"/>
+    </linearGradient>
+
+    <!-- Chat Bubble Clipping Geometry -->
+    <clipPath id="bubbleClip">
+      <path d="M 160 52 
+               L 352 52 
+               C 424 52, 460 88, 460 160 
+               L 460 300 
+               C 460 372, 424 408, 352 408 
+               L 204 408 
+               C 164 408, 118 432, 74 460 
+               C 66 465, 56 458, 58 448 
+               C 65 414, 70 376, 66 346 
+               C 56 333, 52 318, 52 300 
+               L 52 160 
+               C 52 88, 88 52, 160 52 Z"/>
+    </clipPath>
+  </defs>
+
+  <!-- Drop Shadow Silhouette -->
+  <path d="M 160 52 
+           L 352 52 
+           C 424 52, 460 88, 460 160 
+           L 460 300 
+           C 460 372, 424 408, 352 408 
+           L 204 408 
+           C 164 408, 118 432, 74 460 
+           C 66 465, 56 458, 58 448 
+           C 65 414, 70 376, 66 346 
+           C 56 333, 52 318, 52 300 
+           L 52 160 
+           C 52 88, 88 52, 160 52 Z"
+        fill="#022a1f" filter="url(#bubbleShadow)"/>
+
+  <!-- Main Chat Bubble Body -->
+  <g clip-path="url(#bubbleClip)">
+    <!-- Base Gradient Fill -->
+    <rect x="0" y="0" width="512" height="512" fill="url(#mainGradient)"/>
+    <!-- Depth & Ambient Vignette -->
+    <rect x="0" y="0" width="512" height="512" fill="url(#depthGlow)"/>
+
+    <!-- Curved Aerodynamic Streamline Bands -->
+    <!-- Band 1: Upper aerodynamic sweep -->
+    <path d="M 36 170 C 130 95, 270 70, 476 130 L 476 210 C 290 145, 150 170, 36 248 Z"
+          fill="url(#aeroGrad1)"/>
+    <!-- Band 2: Supersonic mid swoop -->
+    <path d="M 36 315 C 150 250, 310 260, 476 350 L 476 295 C 320 205, 170 195, 36 255 Z"
+          fill="url(#aeroGrad2)"/>
+    <!-- Band 3: Lower aerodynamic flow -->
+    <path d="M 40 375 C 160 330, 280 345, 460 415 L 440 440 C 270 375, 150 360, 50 410 Z"
+          fill="url(#aeroGrad1)" opacity="0.4"/>
+
+    <!-- Aerodynamic Speed Accent Lines -->
+    <path d="M 64 125 C 180 75, 340 85, 448 160" 
+          stroke="url(#sheen)" stroke-width="4.5" stroke-linecap="round" fill="none" opacity="0.6"/>
+    <path d="M 90 98 C 190 62, 310 70, 400 120" 
+          stroke="url(#sheen)" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.4"/>
+
+    <!-- Top Border Highlight -->
+    <ellipse cx="256" cy="56" rx="150" ry="6" fill="url(#sheen)"/>
+  </g>
+
+  <!-- Clean White Interior Glyphs: Lightweight Fast Messaging 'W' -->
+  <g filter="url(#glyphShadow)">
+    <!-- Stylized Aerodynamic W Monogram -->
+    <path d="M 144 196
+             C 144 190, 149 186, 156 186
+             C 161 186, 166 189, 169 194
+             L 205 276
+             L 237 202
+             C 240 196, 246 192, 253 192
+             C 260 192, 266 196, 269 202
+             L 301 276
+             L 337 194
+             C 340 189, 345 186, 350 186
+             C 357 186, 362 190, 362 196
+             C 362 198, 361 201, 360 203
+             L 318 308
+             C 314 318, 304 324, 293 324
+             C 284 324, 275 319, 270 311
+             L 253 268
+             L 236 311
+             C 231 319, 222 324, 213 324
+             C 202 324, 192 318, 188 308
+             L 146 203
+             C 145 201, 144 198, 144 196 Z"
+          fill="url(#whiteGlyph)"/>
+
+    <!-- Supersonic Speed Streamlines / Messaging Send Trails Above Center -->
+    <path d="M 226 164 C 242 152, 264 152, 280 164" 
+          stroke="url(#whiteGlyph)" stroke-width="8" stroke-linecap="round" fill="none"/>
+    <path d="M 238 144 C 248 136, 258 136, 268 144" 
+          stroke="url(#whiteGlyph)" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.9"/>
+    <circle cx="253" cy="126" r="3.5" fill="url(#whiteGlyph)" opacity="0.8"/>
+  </g>
+</svg>

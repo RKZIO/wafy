@@ -1,0 +1,13 @@
+[Desktop Entry]
+Name=Wafy
+Comment=Ultra-lightweight messaging client for WhatsApp Web
+GenericName=Messaging Client
+Exec=wafy %u
+Icon=wafy
+Terminal=false
+Type=Application
+StartupNotify=true
+StartupWMClass=io.github.wafy.Wafy
+Categories=Network;InstantMessaging;Chat;
+MimeType=x-scheme-handler/whatsapp;
+Keywords=whatsapp;chat;messaging;im;wafy;

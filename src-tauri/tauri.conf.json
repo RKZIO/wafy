@@ -1,0 +1,49 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Wafy",
+  "version": "1.0.0",
+  "identifier": "io.github.wafy.Wafy",
+  "build": {
+    "beforeDevCommand": "",
+    "beforeBuildCommand": "",
+    "frontendDist": "../src"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "windows": [
+      {
+        "title": "Wafy",
+        "label": "main",
+        "width": 1050,
+        "height": 720,
+        "minWidth": 600,
+        "minHeight": 500,
+        "resizable": true,
+        "fullscreen": false,
+        "url": "https://web.whatsapp.com",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
+      }
+    ],
+    "trayIcon": {
+      "iconPath": "icons/wafy-tray.png",
+      "tooltip": "Wafy",
+      "iconAsTemplate": true
+    },
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["deb"],
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.png"
+    ],
+    "category": "SocialNetworking",
+    "shortDescription": "Ultra-lightweight WhatsApp Web client for Linux",
+    "longDescription": "Wafy is an open-source, ultra-lightweight desktop messaging client for Linux wrapping WhatsApp Web with Tauri v2, Rust, and WebKitGTK for maximum memory efficiency."
+  }
+}
