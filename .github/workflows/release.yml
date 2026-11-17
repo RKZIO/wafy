@@ -41,6 +41,27 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Determine Release Version
+        id: version_step
+        run: |
+          if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
+            VER="${{ github.ref_name }}"
+            VER="${VER#v}"
+          else
+            VER="1.0.${{ github.run_number }}"
+          fi
+          echo "version=$VER" >> $GITHUB_OUTPUT
+          echo "tag=v$VER" >> $GITHUB_OUTPUT
+          
+          # Update version in tauri.conf.json so the .deb filename matches
+          node -e "
+            const fs = require('fs');
+            const file = './src-tauri/tauri.conf.json';
+            const conf = JSON.parse(fs.readFileSync(file, 'utf8'));
+            conf.version = '$VER';
+            fs.writeFileSync(file, JSON.stringify(conf, null, 2));
+          "
+
       - name: Build Debian package (.deb)
         run: npx @tauri-apps/cli build --bundles deb
 
@@ -52,10 +73,9 @@ jobs:
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
-        if: startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/main'
         with:
-          tag_name: ${{ startsWith(github.ref, 'refs/tags/v') && github.ref_name || 'v1.0.0' }}
-          name: ${{ startsWith(github.ref, 'refs/tags/v') && github.ref_name || 'Wafy v1.0.0' }}
+          tag_name: ${{ steps.version_step.outputs.tag }}
+          name: Wafy ${{ steps.version_step.outputs.tag }}
           draft: false
           prerelease: false
           files: src-tauri/target/release/bundle/deb/*.deb
