@@ -1,7 +1,7 @@
 use tauri::{
     menu::{Menu, MenuItem},
     tray::{MouseButton, TrayIconBuilder, TrayIconEvent},
-    AppHandle, Manager,
+    AppHandle, Manager, WebviewUrl, WebviewWindowBuilder,
 };
 
 #[tauri::command]
@@ -94,16 +94,46 @@ pub fn run() {
                 })
                 .build(app)?;
 
+            let badge_js = include_str!("../../src/badge_observer.js");
+            let style_css = include_str!("../../src/style.css");
+
+            let init_script = format!(
+                r#"
+                {}
+                window.addEventListener('DOMContentLoaded', () => {{
+                    try {{
+                        const style = document.createElement('style');
+                        style.textContent = `{}`;
+                        document.head.appendChild(style);
+                    }} catch (e) {{}}
+                }});
+                "#,
+                badge_js,
+                style_css.replace('`', "\\`")
+            );
+
+            // Build main WebviewWindow programmatically with script injection
+            let window = WebviewWindowBuilder::new(
+                app,
+                "main",
+                WebviewUrl::External("https://web.whatsapp.com".parse().unwrap()),
+            )
+            .title("Wafy")
+            .inner_size(1050.0, 720.0)
+            .min_inner_size(600.0, 500.0)
+            .resizable(true)
+            .user_agent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36")
+            .initialization_script(&init_script)
+            .build()?;
+
             // Window Close-to-Tray event handler
-            if let Some(window) = app.get_webview_window("main") {
-                let window_clone = window.clone();
-                window.on_window_event(move |event| {
-                    if let tauri::WindowEvent::CloseRequested { api, .. } = event {
-                        api.prevent_close();
-                        let _ = window_clone.hide();
-                    }
-                });
-            }
+            let window_clone = window.clone();
+            window.on_window_event(move |event| {
+                if let tauri::WindowEvent::CloseRequested { api, .. } = event {
+                    api.prevent_close();
+                    let _ = window_clone.hide();
+                }
+            });
 
             Ok(())
         });

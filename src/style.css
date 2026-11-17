@@ -143,11 +143,19 @@ div[data-testid*="banner"]:has(a[href*="microsoft.com"]) {
 
 /* Hide desktop push notification permission prompt banners inside webview (since handled natively) */
 div[role="region"]:has(button[aria-label*="Turn on desktop notifications" i]),
-div:has(> button[aria-label*="Turn on desktop notifications" i]) {
+div[role="region"]:has(button[aria-label*="notification" i]),
+div:has(> button[aria-label*="Turn on desktop notifications" i]),
+div:has(> button[aria-label*="Turn on notifications" i]),
+div:has(span[data-icon="alert-notification"]),
+div:has(span[data-icon="notification"]) {
   display: none !important;
   visibility: hidden !important;
   height: 0 !important;
   min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
 }
 
 /* Clean up introductory splash illustration spacing */
