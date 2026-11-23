@@ -143,7 +143,8 @@ pub fn run(single_instance_listener: Option<std::os::unix::net::UnixListener>) {
                 .item(&prefs_menu)
                 .build()?;
 
-            app.set_menu(menu)?;
+            // Keep a clone to attach directly to the window after it's built
+            let menu_for_window = menu.clone();
 
             // ── Menu Event Handler ─────────────────────────────────────────
             let mic_reset_clone = mic_state_for_reset.clone();
@@ -279,6 +280,10 @@ pub fn run(single_instance_listener: Option<std::os::unix::net::UnixListener>) {
             .user_agent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36")
             .initialization_script(&init_script)
             .build()?;
+
+            // Explicitly attach menu to window (required on Linux — app.set_menu
+            // only covers windows that exist at that moment)
+            let _ = window.set_menu(menu_for_window);
 
             // Close → minimise to tray
             let window_clone = window.clone();
