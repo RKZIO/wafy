@@ -134,11 +134,14 @@
     window.Notification = WafyNotification;
   }
 
-  // Intercept navigator.permissions.query for 'notifications'
+  // Intercept navigator.permissions.query for 'notifications' and 'microphone'
   if (navigator.permissions && typeof navigator.permissions.query === 'function') {
     const originalQuery = navigator.permissions.query.bind(navigator.permissions);
     navigator.permissions.query = function (parameters) {
-      if (parameters && parameters.name === 'notifications') {
+      if (
+        parameters &&
+        (parameters.name === 'notifications' || parameters.name === 'microphone')
+      ) {
         return Promise.resolve({
           state: 'granted',
           status: 'granted',

@@ -25,7 +25,13 @@
       "icons/icon.png"
     ],
     "category": "SocialNetworking",
-    "shortDescription": "Ultra-lightweight WhatsApp Web client for Linux",
-    "longDescription": "Wafy is an open-source, ultra-lightweight desktop messaging client for Linux wrapping WhatsApp Web with Tauri v2, Rust, and WebKitGTK for maximum memory efficiency."
+    "shortDescription": "Ultra-lightweight desktop messaging client for Linux",
+    "longDescription": "Wafy is an ultra-lightweight, high-performance desktop messaging client for Linux designed for seamless communication with minimal system resource usage.",
+    "linux": {
+      "deb": {
+        "desktopTemplate": "../assets/wafy.desktop",
+        "preInstallScript": "../scripts/preinstall.sh"
+      }
+    }
   }
 }

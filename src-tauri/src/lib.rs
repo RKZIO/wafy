@@ -147,8 +147,9 @@ pub fn run(single_instance_listener: Option<std::os::unix::net::UnixListener>) {
                 .item(&prefs_menu)
                 .build()?;
 
-            // Keep a clone to attach directly to the window after it's built
+            // Set app-wide menu and retain a handle for explicit window attachment
             let menu_for_window = menu.clone();
+            let _ = app.set_menu(menu);
 
             // ── Menu Event Handler ─────────────────────────────────────────
             let mic_reset_clone = mic_state_for_reset.clone();
