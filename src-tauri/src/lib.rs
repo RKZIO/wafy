@@ -47,6 +47,9 @@ fn show_notification(title: String, body: String, app: AppHandle) -> Result<(), 
 /// Show a native zenity dialog to ask the user about microphone access.
 /// Returns true if user clicked Allow.
 fn ask_microphone_permission() -> bool {
+    // Capture DISPLAY now (called from WebKit thread which may lose it)
+    let display = std::env::var("DISPLAY").unwrap_or_else(|_| ":0".to_string());
+
     std::process::Command::new("zenity")
         .args([
             "--question",
@@ -56,6 +59,7 @@ fn ask_microphone_permission() -> bool {
             "--cancel-label=Deny",
             "--width=360",
         ])
+        .env("DISPLAY", &display)
         .status()
         .map(|s| s.success())
         .unwrap_or(false)

@@ -40,5 +40,10 @@ fn main() {
         std::env::set_var("WEBKIT_DISABLE_DMABUF_RENDERER", "1");
     }
 
+    // Force GTK to draw its own menu bar instead of delegating to the global
+    // menu proxy (affects Cinnamon, MATE, and Ubuntu/Unity environments).
+    std::env::set_var("UBUNTU_MENUPROXY", "");
+    std::env::set_var("APPMENU_DISPLAY_BOTH", "1");
+
     wafy_lib::run(single_instance_listener);
 }
